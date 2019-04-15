@@ -6,7 +6,8 @@ import numpy as np
 import igraph
 from numpy.testing import assert_array_almost_equal
 
-import os, sys
+import os
+import sys
 current = os.path.dirname(os.path.realpath(__file__))
 src_path = os.path.join(current, '..')
 sys.path.insert(0,src_path)
