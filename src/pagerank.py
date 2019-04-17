@@ -21,8 +21,8 @@ __email__ = "sajadi@cs.dal.ca"
 __status__ = "Development"
 
 
-def moler_pagerank(G, p=damping_factor,
-                          personalize=None, reverse=False):
+def pagerank(G, p=0.85,
+             personalize=None, reverse=False):
     """ Calculates pagerank given a csr graph
 
     Inputs:
@@ -51,22 +51,22 @@ def moler_pagerank(G, p=damping_factor,
 
     k = c.nonzero()[0]
 
-    D = sprs.csr_matrix((1/c[k], (k, k)), shape=(n, n))
+    D = sprs.csr_matrix((1 / c[k], (k, k)), shape=(n, n))
 
     if personalize is None:
         personalize = sp.ones(n)
     personalize = personalize.reshape(n, 1)
-    e = (personalize/personalize.sum())*n
+    e = (personalize / personalize.sum()) * n
 
     I = sprs.eye(n)
-    x = sprs.linalg.spsolve((I - p*G.dot(D)), e)
+    x = sprs.linalg.spsolve((I - p * G.dot(D)), e)
 
     x = x / x.sum()
     return x
 
 
-def moler_pagerank_power(G, p=damping_factor, max_iter=100,
-                                tol=1e-06, personalize=None, reverse=False):
+def pagerank_power(G, p=0.85, max_iter=100,
+                   tol=1e-06, personalize=None, reverse=False):
     """ Calculates pagerank given a csr graph
 
     Inputs:
@@ -94,14 +94,14 @@ def moler_pagerank_power(G, p=damping_factor, max_iter=100,
 
     k = c.nonzero()[0]
 
-    D = sprs.csr_matrix((1/c[k], (k, k)), shape=(n, n))
+    D = sprs.csr_matrix((1 / c[k], (k, k)), shape=(n, n))
 
     if personalize is None:
         personalize = sp.ones(n)
     personalize = personalize.reshape(n, 1)
-    e = (personalize / personalize.sum())*n
+    e = (personalize / personalize.sum()) * n
 
-    z = (((1-p) * (c != 0) + (c == 0)) / n)[sp.newaxis, :]
+    z = (((1 - p) * (c != 0) + (c == 0)) / n)[sp.newaxis, :]
     G = p * G.dot(D)
 
     x = e / n
@@ -109,7 +109,7 @@ def moler_pagerank_power(G, p=damping_factor, max_iter=100,
 
     iteration = 0
 
-    while sp.linalg.norm(x-oldx) > tol:
+    while sp.linalg.norm(x - oldx) > tol:
         oldx = x
         x = G.dot(x) + e.dot(z.dot(x))
         iteration += 1
