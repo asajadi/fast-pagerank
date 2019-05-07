@@ -1,7 +1,9 @@
-"""Two "fast" implementations of PageRank.
-
-Pythom implementations of Matlab original in:
-Cleve Moler, Experiments with MATLAB.
+"""Two fast implementations of PageRank: 
+    An exact solution using a sparse linear system solver, and an a power method approximation. 
+    Both solutions are taking full advantage of sparse matrix calculations.
+    
+    [Reference]:
+    Cleve Moler. 2011. Experiments with MATLAB (Electronic ed.). MathWorks, Inc.
 """
 # uncomment
 from __future__ import division
@@ -12,13 +14,8 @@ import scipy.spatial
 import scipy.sparse.linalg
 
 __author__ = "Armin Sajadi"
-__copyright__ = "Copyright 215, The Wikisim Project"
-__credits__ = ["Armin Sajadi"]
-__license__ = "GPL"
-__version__ = "1.0.1"
-__maintainer__ = "Armin Sajadi"
-__email__ = "sajadi@cs.dal.ca"
-__status__ = "Development"
+__copyright__ = "Copyright 2015, The Wikisim Project"
+__email__ = "asajadi@gmail.com"
 
 
 def pagerank(G, p=0.85,
