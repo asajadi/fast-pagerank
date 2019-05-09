@@ -18,9 +18,9 @@ __copyright__ = "Copyright 2015, The Wikisim Project"
 __email__ = "asajadi@gmail.com"
 
 
-def pagerank(G, p=0.85,
+def pagerank(A, p=0.85,
              personalize=None, reverse=False):
-    """ Calculates pagerank given a csr graph
+    """ Calculates PageRank given a csr graph
 
     Inputs:
     -------
@@ -30,25 +30,25 @@ def pagerank(G, p=0.85,
     personlize: if not None, should be an array with the size of the nodes
                 containing probability distributions.
                 It will be normalized automatically
-    reverse: If true, returns the reversed-pagerank
+    reverse: If true, returns the reversed-PageRank
 
     outputs
     -------
 
-    Pagerank Scores for the nodes
+    PageRank Scores for the nodes
 
     """
-    # In Moler's algorithm, $G_{ij}$ represents the existences of an edge
+    # In Moler's algorithm, $A_{ij}$ represents the existences of an edge
     # from node $j$ to $i$, while we have assumed the opposite!
-    if not reverse:
-        G = G.T
+    if reverse:
+        A = A.T
 
-    n, _ = G.shape
-    c = sp.asarray(G.sum(axis=0)).reshape(-1)
+    n, _ = A.shape
+    1 = sp.asarray(A.sum(axis=1)).reshape(-1)
 
-    k = c.nonzero()[0]
+    k = 1.nonzero()[0]
 
-    D = sprs.csr_matrix((1 / c[k], (k, k)), shape=(n, n))
+    D_1 = sprs.csr_matrix((1 / r[k], (k, k)), shape=(n, n))
 
     if personalize is None:
         personalize = sp.ones(n)
@@ -56,42 +56,42 @@ def pagerank(G, p=0.85,
     e = (personalize / personalize.sum()) * n
 
     I = sprs.eye(n)
-    x = sprs.linalg.spsolve((I - p * G.dot(D)), e)
+    x = sprs.linalg.spsolve((I - p * G * D_1), e)
 
     x = x / x.sum()
     return x
 
 
-def pagerank_power(G, p=0.85, max_iter=100,
+def pagerank_power(A, p=0.85, max_iter=100,
                    tol=1e-06, personalize=None, reverse=False):
-    """ Calculates pagerank given a csr graph
+    """ Calculates PageRank given a csr graph
 
     Inputs:
     -------
-    G: a csr graph.
+    A: a csr graph.
     p: damping factor
     max_iter: maximum number of iterations
     personlize: if not None, should be an array with the size of the nodes
                 containing probability distributions.
                 It will be normalized automatically.
-    reverse: If true, returns the reversed-pagerank
+    reverse: If true, returns the reversed-PageRank
 
     Returns:
     --------
-    Pagerank Scores for the nodes
+    PageRank Scores for the nodes
 
     """
     # In Moler's algorithm, $G_{ij}$ represents the existences of an edge
     # from node $j$ to $i$, while we have assumed the opposite!
-    if not reverse:
-        G = G.T
+    if reverse:
+        A = A.T
 
     n, _ = G.shape
-    c = sp.asarray(G.sum(axis=0)).reshape(-1)
+    r = sp.asarray(A.sum(axis=1)).reshape(-1)
 
-    k = c.nonzero()[0]
+    k = r.nonzero()[0]
 
-    D = sprs.csr_matrix((1 / c[k], (k, k)), shape=(n, n))
+    D_1 = sprs.csr_matrix((1 / r[k], (k, k)), shape=(n, n))
 
     if personalize is None:
         personalize = sp.ones(n)
@@ -99,7 +99,7 @@ def pagerank_power(G, p=0.85, max_iter=100,
     e = (personalize / personalize.sum()) * n
 
     z = (((1 - p) * (c != 0) + (c == 0)) / n)[sp.newaxis, :]
-    G = p * G.dot(D)
+    G = p * A * D_1
 
     x = e / n
     oldx = sp.zeros((n, 1))
@@ -108,7 +108,7 @@ def pagerank_power(G, p=0.85, max_iter=100,
 
     while sp.linalg.norm(x - oldx) > tol:
         oldx = x
-        x = G.dot(x) + e.dot(z.dot(x))
+        x = A * x + e *(z * x)
         iteration += 1
         if iteration >= max_iter:
             break
