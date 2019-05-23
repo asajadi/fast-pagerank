@@ -44,19 +44,19 @@ def pagerank(A, p=0.85,
         A = A.T
 
     n, _ = A.shape
-    1 = sp.asarray(A.sum(axis=1)).reshape(-1)
+    r = sp.asarray(A.sum(axis=1)).reshape(-1)
 
-    k = 1.nonzero()[0]
+    k = r.nonzero()[0]
 
     D_1 = sprs.csr_matrix((1 / r[k], (k, k)), shape=(n, n))
 
     if personalize is None:
         personalize = sp.ones(n)
     personalize = personalize.reshape(n, 1)
-    e = (personalize / personalize.sum()) * n
+    s = (personalize / personalize.sum()) * n
 
     I = sprs.eye(n)
-    x = sprs.linalg.spsolve((I - p * G * D_1), e)
+    x = sprs.linalg.spsolve((I - p * A.T @ D_1), s)
 
     x = x / x.sum()
     return x
@@ -86,7 +86,7 @@ def pagerank_power(A, p=0.85, max_iter=100,
     if reverse:
         A = A.T
 
-    n, _ = G.shape
+    n, _ = A.shape
     r = sp.asarray(A.sum(axis=1)).reshape(-1)
 
     k = r.nonzero()[0]
@@ -96,19 +96,19 @@ def pagerank_power(A, p=0.85, max_iter=100,
     if personalize is None:
         personalize = sp.ones(n)
     personalize = personalize.reshape(n, 1)
-    e = (personalize / personalize.sum()) * n
+    s = (personalize / personalize.sum()) * n
 
-    z = (((1 - p) * (c != 0) + (c == 0)) / n)[sp.newaxis, :]
-    G = p * A * D_1
+    z_T = (((1 - p) * (r != 0) + (r == 0)) / n)[sp.newaxis, :]
+    W = p * A.T @ D_1
 
-    x = e / n
+    x = s
     oldx = sp.zeros((n, 1))
 
     iteration = 0
 
     while sp.linalg.norm(x - oldx) > tol:
         oldx = x
-        x = A * x + e *(z * x)
+        x = W @ x + s @ (z_T @ x)
         iteration += 1
         if iteration >= max_iter:
             break
