@@ -13,8 +13,8 @@ sys.path.insert(
             os.path.dirname(__file__),
             '..')))
 
-from fastpagerank.pagerank import pagerank_power
-from fastpagerank.pagerank import pagerank
+from fast_pagerank.pagerank import pagerank_power
+from fast_pagerank.pagerank import pagerank
 
 class TestMolerPageRank(unittest.TestCase):
     def setUp(self):
