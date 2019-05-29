@@ -1,4 +1,3 @@
-
 import os
 import sys
 import scipy as sp
@@ -15,6 +14,7 @@ sys.path.insert(
 
 from fast_pagerank.pagerank import pagerank_power
 from fast_pagerank.pagerank import pagerank
+
 
 class TestMolerPageRank(unittest.TestCase):
     def setUp(self):
