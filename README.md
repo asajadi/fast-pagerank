@@ -22,7 +22,7 @@ It can be found on the [notebook page](notebooks/Fast-PageRank.ipynb), or the [b
 ### Example
 Let's take Example 1 from https://www.cs.princeton.edu/~chazelle/courses/BIB/pagerank.htm 
 
-![example1.gif](attachment:example1.gif)
+![](example1.gif)
 
 Assuming A=0, B=1, C=2, D=3:
 
