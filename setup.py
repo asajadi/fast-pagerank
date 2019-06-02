@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fast-pagerank-asajadi",
-    version="0.0.1",
+    version="0.0.2",
     author="Armin Sajadi",
     author_email="asajadi@gmail.com",
     description="A fast PageRank and Personalized PageRank implementation",

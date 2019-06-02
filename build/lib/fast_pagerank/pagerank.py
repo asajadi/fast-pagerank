@@ -1,9 +1,11 @@
-"""Two fast implementations of PageRank: 
-    An exact solution using a sparse linear system solver, and an a power method approximation. 
+"""Two fast implementations of PageRank:
+    An exact solution using a sparse linear system solver,
+    and an a power method approximation.
     Both solutions are taking full advantage of sparse matrix calculations.
-    
+
     [Reference]:
-    Cleve Moler. 2011. Experiments with MATLAB (Electronic ed.). MathWorks, Inc.
+    Cleve Moler. 2011. Experiments with MATLAB (Electronic ed.).
+    MathWorks, Inc.
 """
 # uncomment
 from __future__ import division
