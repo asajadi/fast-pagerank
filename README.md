@@ -12,7 +12,7 @@ I modified the algorithm a little bit to be able to calculate **personalized Pag
 Both implementations (exact solution and *power method*) are much faster than their correspondent methods in NetworkX. The *power method* is also faster than the iGraph latest implementation, *PRPACK*, which is also an eigen-vector based implementation. Benchmarking is done on a `ml.t3.2xlarge` SageMaker instance. 
 
 ## More Details on PageRank, its Implementation and Benchmarking
-It can be found on the [notebook page](notebooks/Fast-PageRank.ipynb), or the [blog post](https://asajadi.github.io/data/2019/05/26/fast-pagerank.html).
+Detailed explanations can be found on the [notebook page](notebooks/Fast-PageRank.ipynb), or the [blog post](https://asajadi.github.io/data/2019/05/26/fast-pagerank.html).
 
 
 ## Usage

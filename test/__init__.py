@@ -1,1 +1,0 @@
-name = "fast_pagerank"

@@ -1,7 +1,7 @@
 README.md
 setup.py
 fast_pagerank/__init__.py
-fast_pagerank/pagerank.py
+fast_pagerank/fast_pagerank.py
 fast_pagerank_asajadi.egg-info/PKG-INFO
 fast_pagerank_asajadi.egg-info/SOURCES.txt
 fast_pagerank_asajadi.egg-info/dependency_links.txt
