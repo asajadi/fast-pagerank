@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="fast-pagerank-asajadi",
+    name="fast-pagerank",
     version="0.0.3",
     author="Armin Sajadi",
     author_email="asajadi@gmail.com",

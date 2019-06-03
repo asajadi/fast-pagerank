@@ -1,6 +1,6 @@
 # Fast Personalized PageRank Implementation
 
-I needed a fast PageRank for Wikisim project, it has to be fast enough to run real time on relatively large graphs. Networkx was the obvious tool to use, however, it needed back and forth translation from my graph representation (which was the pretty standard csr matrix), to its internal graph data structure. These translations were slowing down the process. 
+I needed a fast PageRank for [Wikisim](https://github.com/asajadi/wikisim) project. It had to be fast enough to run real time on relatively large graphs. NetworkX was the obvious library to use, however, it needed back and forth translation from my graph representation (which was the pretty standard csr matrix), to its internal graph data structure. These translations were slowing down the process. 
 
 I implemented two versions of the algorithm in Python, both inspired by the sparse fast solutions given in [**Cleve Moler**](https://en.wikipedia.org/wiki/Cleve_Moler)'s book, [*Experiments with MATLAB*](https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/exm/chapters/pagerank.pdf). The power method is much faster with enough precision for our task. 
 
@@ -8,11 +8,16 @@ I implemented two versions of the algorithm in Python, both inspired by the spar
 I modified the algorithm a little bit to be able to calculate **personalized PageRank** as well. 
 
 
-### Comparison with Popular Python Implementations: Networkx and iGraph
-Both implementations (exact solution and *power method*) are much faster than their correspondent methods in NetworkX. The *power method* is also faster than the iGraph latest implementation, *PRPACK*, which is also an eigen-vector based implementation. Benchmarking is done on a `ml.t3.2xlarge` SageMaker instance. 
+### Comparison with Popular Python Implementations: NetworkX and iGraph
+Both implementations (exact solution and *power method*) are much faster than their correspondent methods in NetworkX. The *power method* is also faster than the iGraph native implementation, which is also an eigen-vector based solution. Benchmarking is done on a `ml.t3.2xlarge` SageMaker instance. 
 
-## More Details on PageRank, its Implementation and Benchmarking
-Detailed explanations can be found on the [notebook page](notebooks/Fast-PageRank.ipynb), or the [blog post](https://asajadi.github.io/data/2019/05/26/fast-pagerank.html).
+### What is the major drawback of NetworkX PageRank?
+I gave up using NetworkX for one simple reason: I had to calculate PageRank several times, and my internal representation of a graph was a simple sparse matrix. Every time I wanted to calculate PageRank I had to translate it to the graph representation of NetworkX, which was slow. My benchmarking shows that NetworkX  has a pretty fast implementation of PageRank ( `networkx.pagerank_numpy` and  '`networkx.pagerank_scipy`), but translating from its own graph data structure to a csr matrix before doing the actual calculations is exactly what exactly slows down the whole algorithm. 
+
+**Note**: I didn't count the time spent on `nx.from_scipy_sparse_matrix` (converting a csr matrix before passing it to NetworkX PageRank) in my benchmarking, But I could! Because that was another bottleneck for me, and for many other cases that one has a `csr` adjacency matrix.
+
+### Python Implementation
+The python package is hosted at https://github.com/asajadi/fast-pagerank and you can find the installation guide in the [README.md](https://github.com/asajadi/fast-pagerank/blob/master/README.md) file. You also can find this jupyter notebook in [the notebook directory](https://github.com/asajadi/fast-pagerank/blob/master/notebooks/Fast-PageRank.ipynb). 
 
 
 ## Usage
