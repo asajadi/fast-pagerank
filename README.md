@@ -44,7 +44,7 @@ Assuming A=0, B=1, C=2, D=3:
 array([0.37252685, 0.19582391, 0.39414924, 0.0375    ])
 ```
 
-The output elements are essentially the same numbers written on the nodes, but normalized (multiply the vector by $4$ and you will get the same numbers) 
+The output elements are essentially the same numbers written on the nodes, but normalized (multiply the vector by 4 and you will get the same numbers) 
 
 We can add personalization, or use *power method*:
 
