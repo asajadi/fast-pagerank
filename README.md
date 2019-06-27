@@ -17,7 +17,7 @@ I gave up using NetworkX for one simple reason: I had to calculate PageRank seve
 **Note**: I didn't count the time spent on `nx.from_scipy_sparse_matrix` (converting a csr matrix before passing it to NetworkX PageRank) in my benchmarking, But I could! Because that was another bottleneck for me, and for many other cases that one has a `csr` adjacency matrix.
 
 ### Python Implementation
-The python package is hosted at https://github.com/asajadi/fast-pagerank and you can find the installation guide in the [README.md](https://github.com/asajadi/fast-pagerank/blob/master/README.md) file. You also can find this jupyter notebook in [the notebook directory](https://github.com/asajadi/fast-pagerank/blob/master/notebooks/Fast-PageRank.ipynb). 
+The python package is hosted at https://github.com/asajadi/fast-pagerank and you can find the installation guide in the [README.md](https://github.com/asajadi/fast-pagerank/blob/master/README.md) file. You also can find a detailed analysis in [the jupyter notebook](https://github.com/asajadi/fast-pagerank/blob/master/notebooks/Fast-PageRank.ipynb) or [this blog post](https://asajadi.github.io/fast-pagerank/). 
 
 
 ## Usage
