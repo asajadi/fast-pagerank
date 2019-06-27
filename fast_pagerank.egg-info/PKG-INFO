@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: fast-pagerank
-Version: 0.0.3
+Version: 0.0.4
 Summary: A fast PageRank and Personalized PageRank implementation
 Home-page: https://github.com/asajadi/fast_pagerank
 Author: Armin Sajadi
@@ -25,7 +25,7 @@ Description: # Fast Personalized PageRank Implementation
         **Note**: I didn't count the time spent on `nx.from_scipy_sparse_matrix` (converting a csr matrix before passing it to NetworkX PageRank) in my benchmarking, But I could! Because that was another bottleneck for me, and for many other cases that one has a `csr` adjacency matrix.
         
         ### Python Implementation
-        The python package is hosted at https://github.com/asajadi/fast-pagerank and you can find the installation guide in the [README.md](https://github.com/asajadi/fast-pagerank/blob/master/README.md) file. You also can find this jupyter notebook in [the notebook directory](https://github.com/asajadi/fast-pagerank/blob/master/notebooks/Fast-PageRank.ipynb). 
+        The python package is hosted at https://github.com/asajadi/fast-pagerank and you can find the installation guide in the [README.md](https://github.com/asajadi/fast-pagerank/blob/master/README.md) file. You also can find a detailed analysis in [the jupyter notebook](https://github.com/asajadi/fast-pagerank/blob/master/notebooks/Fast-PageRank.ipynb) or [this blog post](https://asajadi.github.io/fast-pagerank/). 
         
         
         ## Usage
@@ -52,7 +52,7 @@ Description: # Fast Personalized PageRank Implementation
         array([0.37252685, 0.19582391, 0.39414924, 0.0375    ])
         ```
         
-        The output elements are essentially the same numbers written on the nodes, but normalized (multiply the vector by $4$ and you will get the same numbers) 
+        The output elements are essentially the same numbers written on the nodes, but normalized (multiply the vector by 4 and you will get the same numbers) 
         
         We can add personalization, or use *power method*:
         
