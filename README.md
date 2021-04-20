@@ -1,3 +1,5 @@
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+
 # Fast Personalized PageRank Implementation
 
 I needed a fast PageRank for [Wikisim](https://github.com/asajadi/wikisim) project. It had to be fast enough to run real time on relatively large graphs. NetworkX was the obvious library to use, however, it needed back and forth translation from my graph representation (which was the pretty standard csr matrix), to its internal graph data structure. These translations were slowing down the process. 
