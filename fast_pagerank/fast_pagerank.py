@@ -10,6 +10,7 @@
 # uncomment
 from __future__ import division
 
+import numpy as np
 import scipy as sp
 import scipy.sparse as sprs
 import scipy.spatial
@@ -46,14 +47,14 @@ def pagerank(A, p=0.85,
         A = A.T
 
     n, _ = A.shape
-    r = sp.asarray(A.sum(axis=1)).reshape(-1)
+    r = np.asarray(A.sum(axis=1)).reshape(-1)
 
     k = r.nonzero()[0]
 
     D_1 = sprs.csr_matrix((1 / r[k], (k, k)), shape=(n, n))
 
     if personalize is None:
-        personalize = sp.ones(n)
+        personalize = np.ones(n)
     personalize = personalize.reshape(n, 1)
     s = (personalize / personalize.sum()) * n
 
@@ -89,26 +90,26 @@ def pagerank_power(A, p=0.85, max_iter=100,
         A = A.T
 
     n, _ = A.shape
-    r = sp.asarray(A.sum(axis=1)).reshape(-1)
+    r = np.asarray(A.sum(axis=1)).reshape(-1)
 
     k = r.nonzero()[0]
 
     D_1 = sprs.csr_matrix((1 / r[k], (k, k)), shape=(n, n))
 
     if personalize is None:
-        personalize = sp.ones(n)
+        personalize = np.ones(n)
     personalize = personalize.reshape(n, 1)
     s = (personalize / personalize.sum()) * n
 
-    z_T = (((1 - p) * (r != 0) + (r == 0)) / n)[sp.newaxis, :]
+    z_T = (((1 - p) * (r != 0) + (r == 0)) / n)[np.newaxis, :]
     W = p * A.T @ D_1
 
-    x = s
-    oldx = sp.zeros((n, 1))
+    x = s / n
+    oldx = np.zeros((n, 1))
 
     iteration = 0
 
-    while sp.linalg.norm(x - oldx) > tol:
+    while np.linalg.norm(x - oldx) > tol:
         oldx = x
         x = W @ x + s @ (z_T @ x)
         iteration += 1

@@ -1,6 +1,7 @@
 import os
 import sys
 import scipy as sp
+import numpy as np
 import scipy.sparse as sparse
 from numpy.testing import assert_allclose
 import unittest
@@ -20,7 +21,7 @@ class TestMolerPageRank(unittest.TestCase):
     def setUp(self):
         # ---G1---
         n1 = 5
-        edges1 = sp.array([[0, 1],
+        edges1 = np.array([[0, 1],
                            [1, 2],
                            [2, 1],
                            [2, 3],
@@ -42,14 +43,14 @@ class TestMolerPageRank(unittest.TestCase):
                     0.4829]
 
         self.p1 = 0.83
-        self.personalize1 = sp.array([0.6005, 0.1221, 0.2542, 0.4778, 0.4275])
+        self.personalize1 = np.array([0.6005, 0.1221, 0.2542, 0.4778, 0.4275])
         self.G1 = sparse.csr_matrix(
             (weights1, (edges1[:, 0], edges1[:, 1])), shape=(n1, n1))
-        self.pr1 = sp.array([0.1592, 0.2114, 0.3085, 0.1, 0.2208])
+        self.pr1 = np.array([0.1592, 0.2114, 0.3085, 0.1, 0.2208])
 
         # ---G2---
         n2 = 10
-        edges2 = sp.array([[2, 4],
+        edges2 = np.array([[2, 4],
                            [2, 5],
                            [4, 5],
                            [5, 3],
@@ -71,22 +72,22 @@ class TestMolerPageRank(unittest.TestCase):
                     0.8079]
         self.G2 = sparse.csr_matrix(
             (weights2, (edges2[:, 0], edges2[:, 1])), shape=(n2, n2))
-        self.personalize2 = sp.array([0.8887, 0.6491, 0.7843, 0.7103, 0.7428,
+        self.personalize2 = np.array([0.8887, 0.6491, 0.7843, 0.7103, 0.7428,
                                       0.6632, 0.7351, 0.3006, 0.8722, 0.1652])
         self.p2 = 0.92
-        self.pr2 = sp.array([0.0234, 0.0255, 0.0629, 0.0196, 0.3303,
+        self.pr2 = np.array([0.0234, 0.0255, 0.0629, 0.0196, 0.3303,
                              0.3436, 0.0194, 0.0079, 0.023, 0.1445])
 
         # ---G3---
         n3 = 5
-        edges3 = sp.array([[2, 4]])
+        edges3 = np.array([[2, 4]])
         weights3 = [0.5441]
         self.G3 = sparse.csr_matrix(
             (weights3, (edges3[:, 0], edges3[:, 1])), shape=(n3, n3))
 
-        self.personalize3 = sp.array([0.0884, 0.2797, 0.3093, 0.5533, 0.985])
+        self.personalize3 = np.array([0.0884, 0.2797, 0.3093, 0.5533, 0.985])
         self.p3 = 0.81
-        self.pr3 = sp.array([0.0358, 0.1134, 0.1254, 0.2244, 0.501])
+        self.pr3 = np.array([0.0358, 0.1134, 0.1254, 0.2244, 0.501])
 
         # ---G4---
         n4 = 5
@@ -96,9 +97,9 @@ class TestMolerPageRank(unittest.TestCase):
         self.G4 = sparse.csr_matrix(
             (weights4, (edges4_rows, edges4_cols)), shape=(n4, n4))
 
-        self.personalize4 = sp.array([0.2534, 0.8945, 0.9562, 0.056, 0.9439])
+        self.personalize4 = np.array([0.2534, 0.8945, 0.9562, 0.056, 0.9439])
         self.p4 = 0.70
-        self.pr4 = sp.array([0.0816, 0.2882, 0.3081, 0.018, 0.3041])
+        self.pr4 = np.array([0.0816, 0.2882, 0.3081, 0.018, 0.3041])
 
         # ---G5---
         n5 = 0
@@ -108,9 +109,9 @@ class TestMolerPageRank(unittest.TestCase):
         self.G5 = sparse.csr_matrix(
             (weights5, (edges5_rows, edges5_cols)), shape=(n5, n5))
 
-        self.personalize5 = sp.array([])
+        self.personalize5 = np.array([])
         self.p5 = 0.70
-        self.pr5 = sp.array([])
+        self.pr5 = np.array([])
 
     def test_pagerank_1(self):
         calculated_pagerank = pagerank(self.G1, p=self.p1,
